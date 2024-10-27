@@ -133,3 +133,12 @@ function cum_add_user_id_on_registration($user_id) {
     update_user_meta($user_id, 'custom_user_id', $custom_user_id);
 }
 add_action('user_register', 'cum_add_user_id_on_registration');
+
+// Hide the wordpress adminbar for basic users
+function cum_hide_admin_bar() {
+    if (is_user_logged_in() && current_user_can('basic_user')) { // change 'basic_user' to the role you want to hide the admin bar for
+        show_admin_bar(false); // Hide the admin bar
+    }
+}
+add_action('after_setup_theme', 'cum_hide_admin_bar');
+
