@@ -115,10 +115,15 @@ add_shortcode('cum_login_form', 'cum_login_form');
 
 // Shortcode for logout button -- [cum_logout_button] 
 function cum_logout_button() {
+    // Get the current page URL to use as the redirect URL after logout
+    $redirect_to = esc_url($_SERVER['REQUEST_URI']);
+
     if (is_user_logged_in()) {
-        // Display the logout button
-        return '<form action="' . wp_logout_url(home_url()) . '" method="post">
-                    <button type="submit" style="padding: 10px 20px; background-color: #f00; color: #fff; border: none; cursor: pointer;">Logout</button>
+        // Display the logout button with the redirect URL set to the current page
+        return '<form action="' . wp_logout_url($redirect_to) . '" method="post">
+                    <button type="submit" style="padding: 10px 20px; background-color: #f00; color: #fff; border: none; cursor: pointer;">
+                        Logout
+                    </button>
                 </form>';
     }
 }
