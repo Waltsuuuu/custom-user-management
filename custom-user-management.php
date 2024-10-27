@@ -17,11 +17,11 @@ require_once('includes/custom-user-management-export-user-data.php');
 // Register a custom role
 function cum_register_custom_roles() {
     add_role(
-        'custom_manager',
-        __('Custom Manager'),
+        'basic_user',
+        __('Basic User'),
         array(
             'read' => true,
-            'edit_posts' => true,
+            'edit_posts' => false,
             'delete_posts' => false,
         )
     );
@@ -81,7 +81,7 @@ function cum_user_management_page() {
 // User role management
 function cum_set_default_user_role($user_id) {
     $user = new WP_User($user_id);
-    $user->set_role('custom_manager');
+    $user->set_role('basic_user');
 }
 add_action('user_register', 'cum_set_default_user_role');
 
