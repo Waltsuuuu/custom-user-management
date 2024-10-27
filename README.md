@@ -14,4 +14,5 @@
 - Ability to reset password through email. (Currently uses default wordpress password reset url)
 - Wordpress admin bar is not displayed for basic "read only" users. 
 - Admin can select which pages are visible only to logged in users. If user is not logged in and attempts to view the page they are sent to a log in page.
+- Pages that are visible to only logged in users are not visible as menu items for non logged in users.
 - Export User ID, Username, Email, "Custom User ID", "First Name", "Last Name", Role as CSV.

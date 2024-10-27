@@ -209,3 +209,22 @@ function cum_hide_admin_bar() {
 }
 add_action('after_setup_theme', 'cum_hide_admin_bar');
 
+// Filter menu items to hide restricted pages from non-logged-in users
+function cum_filter_menu_items($items, $args) {
+    // Get the restricted pages
+    $restricted_pages = get_option('cum_restricted_pages', array());
+
+    // Check if the user is not logged in
+    if (!is_user_logged_in()) {
+        // Loop through the restricted pages and remove them from the menu items
+        foreach ($restricted_pages as $page_id) {
+            // Get the page title
+            $page_title = get_the_title($page_id);
+            // Remove the page from the menu items if it exists
+            $items = preg_replace('/<li[^>]*><a[^>]*>' . preg_quote($page_title, '/') . '<\/a><\/li>/', '', $items);
+        }
+    }
+
+    return $items;
+}
+add_filter('wp_nav_menu_items', 'cum_filter_menu_items', 10, 2);
