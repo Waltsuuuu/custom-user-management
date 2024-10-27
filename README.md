@@ -1,9 +1,9 @@
 # custom-user-management plugin for wordpress
 
 ### Shotcodes
-[cum_registration_form] - Displays a registrtion form.
-[cum_login_form] - Displays log in form, with remember me checkbox / Alerts if user is already logged in.
-[cum_logout_button] - Displays a logout button.
+[cum_registration_form] - Displays a registrtion form. <br/>
+[cum_login_form] - Displays log in form, with remember me checkbox / Alerts if user is already logged in. <br/>
+[cum_logout_button] - Displays a logout button. <br/>
 
 ## Current state
 - Shortcode to display user registration form. Able to create a user through registration form, user gets user ID (which can also be manually changed by admin).
