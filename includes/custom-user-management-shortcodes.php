@@ -64,6 +64,16 @@ function cum_handle_registration() {
 }
 add_action('wp', 'cum_handle_registration');
 
+// Set user role on registration - default is 'basic_user'
+function cum_set_default_user_role($user_id) {
+    $user = new WP_User($user_id);
+    $user->set_role('basic_user');
+}
+add_action('user_register', 'cum_set_default_user_role');
+
+
+
+
 
 // Shortcode for login form -- [cum_login_form]
 function cum_login_form() {
