@@ -12,4 +12,5 @@
 - Shortcode to dislay log in form. Alerts if user is already logged in.
 - Shortcode to display logout button.
 - Ability to reset password through email. (Currently uses default wordpress password reset url)
+-  Wordpress admin bar is not displayed for basic "read only" users. 
 - Export User ID, Username, Email, "Custom User ID", "First Name", "Last Name", Role as CSV.
