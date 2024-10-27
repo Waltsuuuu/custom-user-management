@@ -68,12 +68,40 @@ add_action('wp', 'cum_handle_registration');
 // Shortcode for login form -- [cum_login_form]
 function cum_login_form() {
     if (is_user_logged_in()) {
-        echo '<p>You are already logged in!</p>';
+        echo '<p>' . __('You are already logged in.', 'custom-user-management') . '</p>';
         return;
     }
 
+    // Start output buffering
     ob_start();
-    wp_login_form();
+
+    ?>
+    <form action="<?php echo esc_url(site_url('wp-login.php', 'login_post')); ?>" method="post">
+        <p>
+            <label for="username"><?php _e('Username', 'custom-user-management'); ?></label>
+            <input type="text" name="log" id="username" required>
+        </p>
+        <p>
+            <label for="password"><?php _e('Password', 'custom-user-management'); ?></label>
+            <input type="password" name="pwd" id="password" required>
+        </p>
+        <p>
+            <button type="submit"><?php _e('Login', 'custom-user-management'); ?></button>
+        </p>
+
+        <?php wp_nonce_field('cum_login_action', 'cum_login_nonce'); ?>
+
+        <!-- Add "Forgot Password" Link -->
+        <p>
+            <a href="<?php echo esc_url(wp_lostpassword_url()); ?>">
+                <?php _e('Forgot your password?', 'custom-user-management'); ?>
+            </a>
+        </p>
+
+    </form>
+    <?php
+
+    // End output buffering and return content
     return ob_get_clean();
 }
 add_shortcode('cum_login_form', 'cum_login_form');
