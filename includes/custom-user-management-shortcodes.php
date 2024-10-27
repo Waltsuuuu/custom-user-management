@@ -75,6 +75,9 @@ function cum_login_form() {
     // Start output buffering
     ob_start();
 
+    // Get the current page URL to use as the redirect URL
+    $redirect_to = esc_url($_SERVER['REQUEST_URI']);
+
     ?>
     <form action="<?php echo esc_url(site_url('wp-login.php', 'login_post')); ?>" method="post">
         <p>
@@ -90,6 +93,9 @@ function cum_login_form() {
         </p>
 
         <?php wp_nonce_field('cum_login_action', 'cum_login_nonce'); ?>
+
+        <!-- Redirect to the same page after login -->
+        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>" />
 
         <!-- Add "Forgot Password" Link -->
         <p>
@@ -114,9 +120,6 @@ function cum_logout_button() {
         return '<form action="' . wp_logout_url(home_url()) . '" method="post">
                     <button type="submit" style="padding: 10px 20px; background-color: #f00; color: #fff; border: none; cursor: pointer;">Logout</button>
                 </form>';
-    } else {
-        // Optional: If the user is not logged in, display login button
-        return '<a href="' . wp_login_url() . '" style="padding: 10px 20px; background-color: #0073aa; color: #fff; border: none; cursor: pointer;">Login</a>';
     }
 }
 add_shortcode('cum_logout_button', 'cum_logout_button');
