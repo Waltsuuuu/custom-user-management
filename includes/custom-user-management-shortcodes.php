@@ -23,6 +23,10 @@ function cum_registration_form() {
 }
 add_shortcode('cum_registration_form', 'cum_registration_form');
 
+// Get the current page URL to use as the redirect URL
+$redirect_to = esc_url($_SERVER['REQUEST_URI']);
+
+
 
 // -- Processing registration form.
 function cum_handle_registration() {
@@ -50,7 +54,7 @@ function cum_handle_registration() {
 
             if (!is_wp_error($user_id)) {
                 wp_new_user_notification($user_id, null, 'both');
-                wp_redirect(home_url('/login'));
+                wp_redirect(home_url($redirect_to));
                 exit;
             } else {
                 echo "Error: " . $user_id->get_error_message();
