@@ -7,19 +7,11 @@
 
 ## Current state
 - Shortcode to display user registration form. 
-<br/>
 - Able to create a user through registration form, user gets user ID (which can also be manually changed by admin).
-<br/>
-- Admin can also manually create users.
-<br/>
+- Admin can also manually create users. 
 - Shortcode to dislay log in form. Alerts if user is already logged in.
-<br/>
 - Shortcode to display logout button if user is logged in.
-<br/>
 - Ability to reset password through email. (Currently uses default wordpress password reset url)
-<br/>
 - Wordpress admin bar is not displayed for basic "read only" users. 
-<br/>
 - Ability to restrict access to pages for non logged in users. Pages that are restricted do not show up on non logged in users menu bar.
-<br/>
 - Export User ID, Username, Email, "Custom User ID", "First Name", "Last Name", Role as CSV.
