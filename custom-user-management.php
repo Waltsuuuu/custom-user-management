@@ -2,8 +2,8 @@
 /*
 Plugin Name: Custom User Management
 Description: A plugin to manage user registration, login, roles, and user management.
-Version: 1.0
-Author: Waltteri Heino
+Version: 1.1
+Author: Joonas Hiltunen
 */
 
 // Ensure direct access is not allowed
@@ -84,6 +84,27 @@ function cum_user_management_page() {
         </table>
 
         <!-- Restricted Pages Selection -->
+        <?php if (is_user_logged_in()): ?>
+            <div class="notice notice-success is-dismissible">
+            <p><?php echo 'Successfully logged in, welcome ' . esc_html(wp_get_current_user()->user_login) . '!'; ?></p>
+            </div>
+            <a href="<?php echo wp_logout_url(home_url()); ?>" class="button">Logout</a>
+        <?php endif; ?>
+
+        <?php if (!is_user_logged_in()): ?>
+            <form method="post" action="<?php echo wp_registration_url(); ?>">
+            <label for="user_login">Username</label>
+            <input type="text" name="user_login" id="user_login" required>
+            
+            <label for="user_email">Email</label>
+            <input type="email" name="user_email" id="user_email" required>
+            
+            <label for="user_pass">Password</label>
+            <input type="password" name="user_pass" id="user_pass" required>
+            
+            <input type="submit" value="Register" class="button">
+            </form>
+        <?php endif; ?>
         <h2>Pages Accessible Only to Logged-In Users</h2>
             <form method="post" action="options.php">
             <?php
