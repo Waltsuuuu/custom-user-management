@@ -5,18 +5,18 @@ function cum_registration_form() {
     ob_start(); ?>
     <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
         <p>
-            <label for="username">Username</label>
+            <label for="username">Käyttäjätunnus</label>
             <input type="text" name="username" value="<?php echo (isset($_POST['username']) ? esc_attr($_POST['username']) : ''); ?>">
         </p>
         <p>
-            <label for="email">Email</label>
+            <label for="email">Sähköposti</label>
             <input type="email" name="email" value="<?php echo (isset($_POST['email']) ? esc_attr($_POST['email']) : ''); ?>">
         </p>
         <p>
-            <label for="password">Password</label>
+            <label for="password">Salasana</label>
             <input type="password" name="password">
         </p>
-        <p><input type="submit" name="submit_registration" value="Register"/></p>
+        <p><input type="submit" name="submit_registration" value="Rekisteröidy"/></p>
     </form>
     <?php
     return ob_get_clean();
@@ -38,35 +38,32 @@ function cum_handle_registration() {
         $errors = [];
 
         if (username_exists($username)) {
-            $errors[] = "Username already exists.";
+            $errors[] = "Käyttäjätunnus on jo olemassa.";
         }
 
         if (email_exists($email)) {
-            $errors[] = "Email is already in use.";
+            $errors[] = "Sähköposti on jo olemassa.";
         }
 
         if (empty($password)) {
-            $errors[] = "Password cannot be empty.";
+            $errors[] = "Salasana ei voi olla tyhjä.";
         }
 
         if (empty($errors)) {
             $user_id = wp_create_user($username, $password, $email);
-
-            if (!is_wp_error($user_id)) {
-                wp_new_user_notification($user_id, null, 'both');
-                wp_redirect(home_url($redirect_to));
-                exit;
+            if (is_wp_error($user_id)) {
+                echo '<p class="error">Rekisteröinti epäonnistui, yritä uudelleen.</p>';
             } else {
-                echo "Error: " . $user_id->get_error_message();
+                echo '<p class="success">Rekisteröinti onnistui.</p>';
             }
         } else {
             foreach ($errors as $error) {
-                echo "<p>$error</p>";
+                echo '<p class="error">' . $error . '</p>';
             }
         }
     }
 }
-add_action('wp', 'cum_handle_registration');
+add_action('init', 'cum_handle_registration');
 
 // Set user role on registration - default is 'basic_user'
 function cum_set_default_user_role($user_id) {
@@ -82,7 +79,7 @@ add_action('user_register', 'cum_set_default_user_role');
 // Shortcode for login form -- [cum_login_form]
 function cum_login_form() {
     if (is_user_logged_in()) {
-        echo '<p>' . __('You are already logged in.', 'custom-user-management') . '</p>';
+        echo '<p>' . __('Olet kirjautunut sisään.', 'custom-user-management') . '</p>';
         return;
     }
 
@@ -95,15 +92,15 @@ function cum_login_form() {
     ?>
     <form action="<?php echo esc_url(site_url('wp-login.php', 'login_post')); ?>" method="post">
         <p>
-            <label for="username"><?php _e('Username', 'custom-user-management'); ?></label>
+            <label for="username"><?php _e('Käyttäjätunnus', 'custom-user-management'); ?></label>
             <input type="text" name="log" id="username" required>
         </p>
         <p>
-            <label for="password"><?php _e('Password', 'custom-user-management'); ?></label>
+            <label for="password"><?php _e('Salasana', 'custom-user-management'); ?></label>
             <input type="password" name="pwd" id="password" required>
         </p>
         <p>
-            <button type="submit"><?php _e('Login', 'custom-user-management'); ?></button>
+            <button type="submit"><?php _e('Kirjaudu', 'custom-user-management'); ?></button>
         </p>
 
         <?php wp_nonce_field('cum_login_action', 'cum_login_nonce'); ?>
@@ -114,7 +111,7 @@ function cum_login_form() {
         <!-- Add "Forgot Password" Link -->
         <p>
             <a href="<?php echo esc_url(wp_lostpassword_url()); ?>">
-                <?php _e('Forgot your password?', 'custom-user-management'); ?>
+                <?php _e('Salasana hukassa?', 'custom-user-management'); ?>
             </a>
         </p>
 
@@ -136,7 +133,7 @@ function cum_logout_button() {
         // Display the logout button with the redirect URL set to the current page
         return '<form action="' . wp_logout_url($redirect_to) . '" method="post">
                     <button type="submit" style="padding: 10px 20px; background-color: #f00; color: #fff; border: none; cursor: pointer;">
-                        Logout
+                        Kirjaudu ulos
                     </button>
                 </form>';
     }
