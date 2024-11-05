@@ -6,13 +6,13 @@ function cum_add_custom_user_id_profile_field($user) {
     // Get the current value of custom_user_id
     $custom_user_id = get_user_meta($user->ID, 'custom_user_id', true);
     ?>
-    <h3>Custom User ID</h3>
+    <h3>Executor#</h3>
     <table class="form-table">
         <tr>
-            <th><label for="custom_user_id">Custom User ID</label></th>
+            <th><label for="custom_user_id">Executor#</label></th>
             <td>
                 <input type="text" name="custom_user_id" id="custom_user_id" value="<?php echo esc_attr($custom_user_id); ?>" class="regular-text" />
-                <br><span class="description">This is the user's unique ID.</span>
+                <br><span class="description">Jäsennumero</span>
             </td>
         </tr>
     </table>
