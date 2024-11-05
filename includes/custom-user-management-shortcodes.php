@@ -1,4 +1,5 @@
 <?php
+
 // Set user role on registration - default is 'basic_user'
 function cum_set_default_user_role($user_id) {
     $user = new WP_User($user_id);
