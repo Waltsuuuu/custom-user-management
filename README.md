@@ -1,7 +1,6 @@
 # custom-user-management plugin for wordpress
 
 ### Shotcodes
-[cum_registration_form] - Displays a registrtion form. <br/>
 [cum_login_form] - Displays log in form, with remember me checkbox / Alerts if user is already logged in. <br/>
 [cum_logout_button] - Displays a logout button. <br/>
 
