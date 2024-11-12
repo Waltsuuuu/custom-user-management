@@ -25,6 +25,7 @@ function cum_register_custom_roles() {
             'read' => true,
             'edit_posts' => false,
             'delete_posts' => false,
+            'edit_profile' => true,
         )
     );
 
@@ -35,6 +36,7 @@ function cum_register_custom_roles() {
             'read' => true,
             'edit_posts' => false,
             'delete_posts' => false,
+            'edit_profile' => true,
         )
     );
 
@@ -45,6 +47,7 @@ function cum_register_custom_roles() {
             'read' => true,
             'edit_posts' => false,
             'delete_posts' => false,
+            'edit_profile' => true,
         )
     );
 
