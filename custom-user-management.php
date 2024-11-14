@@ -58,7 +58,7 @@ function cum_register_custom_roles() {
             'edit_profile' => true,
         )
     );
-  
+
     add_role(
         'kunniajäsen',
         __('Kunniajäsen'),
@@ -87,24 +87,6 @@ function cum_add_admin_page() {
     );
 }
 add_action('admin_menu', 'cum_add_admin_page');
-
-
-// Remove default wordpress roles
-function cum_remove_default_roles() {
-    // Remove the 'Subscriber' role
-    remove_role('subscriber');
-
-    // Remove the 'Contributor' role
-    remove_role('contributor');
-
-    // Remove the 'Author' role
-    remove_role('author');
-
-    // Remove the 'Editor' role
-    remove_role('editor');
-
-}
-add_action('init', 'cum_remove_default_roles');
 
 
 // Admin page content
@@ -174,3 +156,4 @@ function cum_user_management_page() {
     </div>
 <?php
 }
+
