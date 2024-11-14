@@ -16,6 +16,25 @@ require_once('includes/custom-user-management-export-user-data.php');
 require_once('includes/custom-user-management-restrict-content.php');
 require_once('includes/custom-user-management-custom-user-id.php');
 
+// Remove default wordpress roles
+function cum_remove_default_roles() {
+    // Remove the 'Subscriber' role
+    remove_role('subscriber');
+
+    // Remove the 'Contributor' role
+    remove_role('contributor');
+
+    // Remove the 'Author' role
+    remove_role('author');
+
+    // Remove the 'Editor' role
+    remove_role('editor');
+
+}
+add_action('init', 'cum_remove_default_roles');
+
+
+
 // Register a custom role
 function cum_register_custom_roles() {
     add_role(
@@ -68,24 +87,6 @@ function cum_add_admin_page() {
     );
 }
 add_action('admin_menu', 'cum_add_admin_page');
-
-
-// Remove default wordpress roles
-function cum_remove_default_roles() {
-    // Remove the 'Subscriber' role
-    remove_role('subscriber');
-
-    // Remove the 'Contributor' role
-    remove_role('contributor');
-
-    // Remove the 'Author' role
-    remove_role('author');
-
-    // Remove the 'Editor' role
-    remove_role('editor');
-
-}
-add_action('init', 'cum_remove_default_roles');
 
 
 // Admin page content
