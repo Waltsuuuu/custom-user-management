@@ -92,7 +92,8 @@ function cum_login_form() {
     ob_start();
 
     // Get the current page URL to use as the redirect URL
-    $redirect_to = esc_url($_SERVER['REQUEST_URI']);
+    $redirect_to = esc_url(home_url());
+    
 
     ?>
     <form action="<?php echo esc_url(site_url('wp-login.php', 'login_post')); ?>" method="post">
