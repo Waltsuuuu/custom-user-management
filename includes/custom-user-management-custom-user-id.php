@@ -1,7 +1,7 @@
 <?php
 
 // Add custom_user_id field to the user profile in the WordPress admin
-// Allows admin to set a custom user ID for each user, ex. if you have an external user database.
+// Allows admin to set a custom user ID (executor#) for each user.
 function cum_add_custom_user_id_profile_field($user) {
     // Get the current value of custom_user_id
     $custom_user_id = get_user_meta($user->ID, 'custom_user_id', true);

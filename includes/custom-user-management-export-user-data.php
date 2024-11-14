@@ -15,7 +15,7 @@ function cum_export_users_to_csv() {
     $output = fopen('php://output', 'w');
 
     // Define the columns for the CSV file
-    $columns = array('User ID', 'Username', 'Email', 'Custom User ID', 'First Name', 'Last Name', 'Role');
+    $columns = array('User ID', 'Username', 'Email', 'Executor#', 'First Name', 'Last Name', 'Role');
     fputcsv($output, $columns);
 
     // Get all users

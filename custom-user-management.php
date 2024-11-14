@@ -16,6 +16,25 @@ require_once('includes/custom-user-management-export-user-data.php');
 require_once('includes/custom-user-management-restrict-content.php');
 require_once('includes/custom-user-management-custom-user-id.php');
 
+// Remove default wordpress roles
+function cum_remove_default_roles() {
+    // Remove the 'Subscriber' role
+    remove_role('subscriber');
+
+    // Remove the 'Contributor' role
+    remove_role('contributor');
+
+    // Remove the 'Author' role
+    remove_role('author');
+
+    // Remove the 'Editor' role
+    remove_role('editor');
+
+}
+add_action('init', 'cum_remove_default_roles');
+
+
+
 // Register a custom role
 function cum_register_custom_roles() {
     add_role(
@@ -25,6 +44,7 @@ function cum_register_custom_roles() {
             'read' => true,
             'edit_posts' => false,
             'delete_posts' => false,
+            'edit_profile' => true,
         )
     );
 
@@ -35,9 +55,10 @@ function cum_register_custom_roles() {
             'read' => true,
             'edit_posts' => false,
             'delete_posts' => false,
+            'edit_profile' => true,
         )
     );
-
+  
     add_role(
         'kunniajäsen',
         __('Kunniajäsen'),
@@ -45,6 +66,7 @@ function cum_register_custom_roles() {
             'read' => true,
             'edit_posts' => false,
             'delete_posts' => false,
+            'edit_profile' => true,
         )
     );
 
@@ -106,7 +128,7 @@ function cum_user_management_page() {
                     <th>Username</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>User ID</th>
+                    <th>Executor#</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -124,7 +146,7 @@ function cum_user_management_page() {
         </table>
 
         <!-- Restricted Pages Selection -->
-        <h2>Pages Accessible Only to Logged-In Users</h2>
+        <h2>Sivut jotka näkyvät vain sisäänkirjautuneille käyttäjille</h2>
             <form method="post" action="options.php">
             <?php
                 // Register settings and sections
@@ -134,7 +156,7 @@ function cum_user_management_page() {
 
                 <table class="form-table">
                     <tr valign="top">
-                    <th scope="row">Select Pages</th>
+                    <th scope="row">Valitse sivut</th>
                         <td>
                             <?php foreach ($pages as $page) : ?>
                             <label style="display: block; margin-bottom: 8px;">
@@ -143,7 +165,7 @@ function cum_user_management_page() {
                                 <?php echo esc_html($page->post_title); ?>
                             </label>
                             <?php endforeach; ?>
-                            <p class="description">Check pages that should be restricted to logged-in users only.</p>
+                            <p class="description">Valitse sivut jotka haluat näyttää vain sisäänkirjautuneille.</p>
                         </td>
                     </tr>
                 </table>

@@ -39,19 +39,25 @@ function cum_filter_menu_items($items, $args) {
     $restricted_pages = get_option('cum_restricted_pages', array());
 
     // Check if the user is not logged in
-    if (!is_user_logged_in()) {
-        // Loop through the restricted pages and remove them from the menu items
-        foreach ($restricted_pages as $page_id) {
-            // Get the page title
-            $page_title = get_the_title($page_id);
-            // Remove the page from the menu items if it exists
-            $items = preg_replace('/<li[^>]*><a[^>]*>' . preg_quote($page_title, '/') . '<\/a><\/li>/', '', $items);
+    if (!is_user_logged_in() && !empty($restricted_pages)) {
+        // Create a new array to store filtered items
+        $filtered_items = array();
+
+        // Loop through each item
+        foreach ($items as $item) {
+            // Check if the menu item is restricted
+            if (!in_array($item->object_id, $restricted_pages)) {
+                // If not restricted, add to the filtered items array
+                $filtered_items[] = $item;
+            }
         }
+
+        return $filtered_items;
     }
 
     return $items;
 }
-add_filter('wp_nav_menu_items', 'cum_filter_menu_items', 10, 2);
+add_filter('wp_nav_menu_objects', 'cum_filter_menu_items', 10, 2);
 
 
 // Hide the wordpress admin bar for basic users
